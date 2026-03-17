@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: second-piece-db
+    ports:
+      - '25432:5432'
+    environment:
+      POSTGRES_USER: secondpiece
+      POSTGRES_PASSWORD: secondpiece
+      POSTGRES_DB: secondpiece
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

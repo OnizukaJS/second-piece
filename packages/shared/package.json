@@ -1,0 +1,15 @@
+{
+  "name": "@second-piece/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/sharedConstants.ts",
+  "types": "./src/sharedConstants.ts",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "check:compile": "tsc --noEmit",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  }
+}

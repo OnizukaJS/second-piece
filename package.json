@@ -1,0 +1,26 @@
+{
+  "name": "second-piece",
+  "private": true,
+  "packageManager": "yarn@4.6.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "check:compile": "turbo run check:compile",
+    "client": "yarn workspace @second-piece/client",
+    "server": "yarn workspace @second-piece/server",
+    "shared": "yarn workspace @second-piece/shared"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "prettier": "^3.4.0",
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0"
+  }
+}
