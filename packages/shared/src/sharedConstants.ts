@@ -6,6 +6,10 @@ export const USER_STATUS = {
   DELETED: 'deleted',
 } as const
 
+export const TOKEN_TYPE = {
+  APP_TOKEN: 'app_token',
+} as const
+
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
