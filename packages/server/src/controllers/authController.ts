@@ -85,6 +85,8 @@ export const login = async (ctx: RouterContext) => {
     return
   }
 
+  await db('tokens').where({userId: user.userId}).andWhere('expireAt', '<=', new Date()).del()
+
   const token = generateToken()
   const expireAt = generateExpiryDate(TOKEN_LIFE_SPAN.SESSION)
 
