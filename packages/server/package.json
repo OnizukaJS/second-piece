@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "DOTENV_CONFIG_PATH=../../.env tsx watch src/index.ts",
     "build": "tsc",
     "check:compile": "tsc --noEmit",
     "lint": "eslint src/",
@@ -14,6 +14,7 @@
     "@second-piece/shared": "workspace:*",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.4.0",
+    "google-auth-library": "^10.6.2",
     "knex": "^3.1.0",
     "koa": "^2.15.0",
     "koa-bodyparser": "^4.4.0",
