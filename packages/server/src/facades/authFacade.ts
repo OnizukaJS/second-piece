@@ -5,8 +5,9 @@ import {HTTP_STATUS, USER_STATUS, TOKEN_TYPE} from '@shared/sharedConstants'
 
 import {getGoogleOAuthClient} from '../config/google'
 import {SALT_ROUNDS, TOKEN_LIFE_SPAN} from '../constants'
-import {usersDao} from '../daos/usersDao'
 import {tokensDao} from '../daos/tokensDao'
+import {userSettingsDao} from '../daos/userSettingsDao'
+import {usersDao} from '../daos/usersDao'
 import {AppError} from '../errors'
 
 const generateToken = () => randomBytes(32).toString('hex')
@@ -47,6 +48,8 @@ export namespace authFacade {
       firstName: params.firstName,
       lastName: params.lastName,
     })
+
+    await userSettingsDao.create({userId: user.userId})
 
     const session = await createSession(user.userId)
     return {user, session}
@@ -90,6 +93,7 @@ export namespace authFacade {
         firstName: payload.given_name ?? null,
         lastName: payload.family_name ?? null,
       })
+      await userSettingsDao.create({userId: user.userId})
     }
 
     const session = await createSession(user.userId)

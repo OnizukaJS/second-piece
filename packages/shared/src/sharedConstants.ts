@@ -10,6 +10,18 @@ export const TOKEN_TYPE = {
   APP_TOKEN: 'app_token',
 } as const
 
+export const LANGUAGE = {
+  EN: 'en',
+  FR: 'fr',
+  ES: 'es',
+} as const
+
+export const DISPLAY_MODE = {
+  LIGHT: 'light',
+  DARK: 'dark',
+  SYSTEM: 'system',
+} as const
+
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,

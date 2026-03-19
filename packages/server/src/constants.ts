@@ -3,6 +3,8 @@ import type {Enum} from '@shared/typings/utils'
 export const DB_CUSTOM_TYPES = {
   USER_STATUS: 'user_status',
   TOKEN_TYPE: 'token_type',
+  LANGUAGE: 'language',
+  DISPLAY_MODE: 'display_mode',
 } as const
 
 export type DbCustomTypes = Enum<typeof DB_CUSTOM_TYPES>
