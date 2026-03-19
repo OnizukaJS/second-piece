@@ -2,6 +2,7 @@ import {HTTP_STATUS} from '@shared/sharedConstants'
 
 import {usersDao} from '../daos/usersDao'
 import {AppError} from '../errors'
+import {UsersId} from '../daos/types/database'
 
 export namespace usersFacade {
   export const createUser = async (data: Record<string, unknown>) => {
@@ -12,7 +13,7 @@ export namespace usersFacade {
     return await usersDao.getUsers()
   }
 
-  export const getUserById = async (userId: string) => {
+  export const getUserById = async (userId: UsersId) => {
     const user = await usersDao.getByUserId(userId)
     if (!user) {
       throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')
@@ -20,7 +21,7 @@ export namespace usersFacade {
     return user
   }
 
-  export const updateUser = async (userId: string, data: Record<string, unknown>) => {
+  export const updateUser = async (userId: UsersId, data: Record<string, unknown>) => {
     const user = await usersDao.update(userId, data)
     if (!user) {
       throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')
@@ -28,7 +29,7 @@ export namespace usersFacade {
     return user
   }
 
-  export const deleteUser = async (userId: string) => {
+  export const deleteUser = async (userId: UsersId) => {
     const deleted = await usersDao.remove(userId)
     if (!deleted) {
       throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')

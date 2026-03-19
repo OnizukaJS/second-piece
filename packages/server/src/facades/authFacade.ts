@@ -9,12 +9,13 @@ import {tokensDao} from '../daos/tokensDao'
 import {userSettingsDao} from '../daos/userSettingsDao'
 import {usersDao} from '../daos/usersDao'
 import {AppError} from '../errors'
+import {UsersId} from '../daos/types/database'
 
 const generateToken = () => randomBytes(32).toString('hex')
 
 const generateExpiryDate = (lifespanMinutes: number) => new Date(Date.now() + lifespanMinutes * 60 * 1000)
 
-const createSession = async (userId: string) => {
+const createSession = async (userId: UsersId) => {
   await tokensDao.deleteExpiredByUserId(userId)
   const token = generateToken()
   const expireAt = generateExpiryDate(TOKEN_LIFE_SPAN.SESSION)
