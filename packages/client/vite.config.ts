@@ -3,6 +3,11 @@ import {defineConfig} from 'vite'
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@shared': new URL('../shared/src', import.meta.url).pathname,
+    },
+  },
   server: {
     port: 3000,
     proxy: {

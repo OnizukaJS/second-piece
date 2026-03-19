@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query'
 import {Button} from 'react-aria-components'
-import {APP_NAME} from '@second-piece/shared/sharedConstants'
+import {APP_NAME} from '@shared/sharedConstants'
 
 export const App = () => {
   const {data, isLoading} = useQuery({
