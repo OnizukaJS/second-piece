@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser'
 import Router from 'koa-router'
 import {APP_NAME} from '@shared/sharedConstants'
 
+import {errorHandler} from './middlewares/errorHandler'
 import apiRouter from './routers/api'
 
 const app = new Koa()
@@ -13,6 +14,7 @@ router.get('/api/health', (ctx) => {
   ctx.body = {status: 'ok', name: APP_NAME}
 })
 
+app.use(errorHandler)
 app.use(bodyParser())
 app.use(router.routes())
 app.use(router.allowedMethods())
