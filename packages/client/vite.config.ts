@@ -3,6 +3,7 @@ import {defineConfig} from 'vite'
 
 export default defineConfig({
   plugins: [react()],
+  envDir: '../..',
   resolve: {
     alias: {
       '@shared': new URL('../shared/src', import.meta.url).pathname,
