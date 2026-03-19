@@ -1,8 +1,10 @@
 import {useMutation} from '@tanstack/react-query'
 import {useState} from 'react'
+import {useTranslation} from 'react-i18next'
 import {useNavigate} from 'react-router-dom'
 
 export const AuthPage = () => {
+  const {t} = useTranslation()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -53,22 +55,22 @@ export const AuthPage = () => {
 
   return (
     <div style={{maxWidth: 400, margin: '100px auto'}}>
-      <h1>Auth</h1>
+      <h1>{t('auth.title')}</h1>
       {error && <p style={{color: 'red'}}>{error}</p>}
 
       <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-        <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input placeholder={t('auth.name')} value={name} onChange={(e) => setName(e.target.value)} />
+        <input placeholder={t('auth.email')} value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input placeholder={t('auth.password')} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
         <div style={{display: 'flex', gap: 8}}>
-          <button onClick={() => registerMutation.mutate()}>Register</button>
-          <button onClick={() => loginMutation.mutate()}>Login</button>
+          <button onClick={() => registerMutation.mutate()}>{t('auth.register')}</button>
+          <button onClick={() => loginMutation.mutate()}>{t('auth.login')}</button>
         </div>
 
         <hr />
 
-        <button onClick={handleGoogleLogin}>Login with Google</button>
+        <button onClick={handleGoogleLogin}>{t('auth.loginWithGoogle')}</button>
       </div>
     </div>
   )

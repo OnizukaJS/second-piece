@@ -1,0 +1,19 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "logout": "Logout"
+  },
+  "auth": {
+    "title": "Auth",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "register": "Register",
+    "login": "Login",
+    "loginWithGoogle": "Login with Google",
+    "loggingInWithGoogle": "Logging in with Google..."
+  },
+  "home": {
+    "users": "Users"
+  }
+}

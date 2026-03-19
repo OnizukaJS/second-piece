@@ -1,0 +1,19 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "logout": "Déconnexion"
+  },
+  "auth": {
+    "title": "Authentification",
+    "name": "Nom",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "register": "S'inscrire",
+    "login": "Se connecter",
+    "loginWithGoogle": "Se connecter avec Google",
+    "loggingInWithGoogle": "Connexion avec Google..."
+  },
+  "home": {
+    "users": "Utilisateurs"
+  }
+}

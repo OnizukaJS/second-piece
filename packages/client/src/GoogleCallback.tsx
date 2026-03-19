@@ -1,8 +1,10 @@
 import {useMutation} from '@tanstack/react-query'
 import {useEffect, useRef} from 'react'
+import {useTranslation} from 'react-i18next'
 import {useNavigate, useSearchParams} from 'react-router-dom'
 
 export const GoogleCallback = () => {
+  const {t} = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const called = useRef(false)
@@ -30,5 +32,5 @@ export const GoogleCallback = () => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <p>Logging in with Google...</p>
+  return <p>{t('auth.loggingInWithGoogle')}</p>
 }

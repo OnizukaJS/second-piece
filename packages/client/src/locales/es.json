@@ -1,0 +1,19 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión"
+  },
+  "auth": {
+    "title": "Autenticación",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "register": "Registrarse",
+    "login": "Iniciar sesión",
+    "loginWithGoogle": "Iniciar sesión con Google",
+    "loggingInWithGoogle": "Iniciando sesión con Google..."
+  },
+  "home": {
+    "users": "Usuarios"
+  }
+}
