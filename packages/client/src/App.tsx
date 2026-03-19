@@ -27,7 +27,7 @@ const HomePage = () => {
 
   return (
     <div style={{maxWidth: 600, margin: '40px auto'}}>
-      <div>
+      <div className='flex gap-1'>
         <button onClick={() => i18n.changeLanguage('en')}>EN</button>
         <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
         <button onClick={() => i18n.changeLanguage('es')}>ES</button>
