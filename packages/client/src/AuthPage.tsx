@@ -1,45 +1,16 @@
-import {useMutation} from '@tanstack/react-query'
 import {useState} from 'react'
 import {useTranslation} from 'react-i18next'
-import {useNavigate} from 'react-router-dom'
+import {useRegisterMutation, useLoginMutation} from './queries/authQueries'
 
 export const AuthPage = () => {
   const {t} = useTranslation()
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState('')
 
-  const registerMutation = useMutation({
-    mutationFn: () =>
-      fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, password, name}),
-      }).then(async (res) => {
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.error)
-        return data
-      }),
-    onSuccess: () => navigate('/'),
-    onError: (err: Error) => setError(err.message),
-  })
-
-  const loginMutation = useMutation({
-    mutationFn: () =>
-      fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, password}),
-      }).then(async (res) => {
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.error)
-        return data
-      }),
-    onSuccess: () => navigate('/'),
-    onError: (err: Error) => setError(err.message),
-  })
+  const {mutate: registerMutation} = useRegisterMutation(setError)
+  const {mutate: loginMutation} = useLoginMutation(setError)
 
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
@@ -64,8 +35,8 @@ export const AuthPage = () => {
         <input placeholder={t('auth.password')} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
         <div style={{display: 'flex', gap: 8}}>
-          <button onClick={() => registerMutation.mutate()}>{t('auth.register')}</button>
-          <button onClick={() => loginMutation.mutate()}>{t('auth.login')}</button>
+          <button onClick={() => registerMutation({email, password, name})}>{t('auth.register')}</button>
+          <button onClick={() => loginMutation({email, password})}>{t('auth.login')}</button>
         </div>
 
         <hr />

@@ -1,44 +1,33 @@
-import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import {APP_NAME} from '@shared/sharedConstants'
+import {useLogoutMutation} from './queries/authQueries'
+import {useGetUsersQuery} from './queries/usersQueries'
 import {AuthPage} from './AuthPage'
 import {GoogleCallback} from './GoogleCallback'
 import i18n from './i18n'
 
 const HomePage = () => {
   const {t} = useTranslation()
-  const queryClient = useQueryClient()
-
-  const {data: users, isLoading} = useQuery({
-    queryKey: ['users'],
-    queryFn: () => fetch('/api/users').then((res) => {
-      if (res.status === 401) throw new Error('unauthorized')
-      return res.json()
-    }),
-  })
-
-  const logoutMutation = useMutation({
-    mutationFn: () => fetch('/api/auth/logout', {method: 'POST'}),
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['users']}),
-  })
+  const {data: users, isLoading} = useGetUsersQuery()
+  const {mutate: logoutMutation} = useLogoutMutation()
 
   if (isLoading) return <p>{t('common.loading')}</p>
 
   return (
     <div style={{maxWidth: 600, margin: '40px auto'}}>
-      <div className='flex gap-1'>
+      <div className="flex gap-1">
         <button onClick={() => i18n.changeLanguage('en')}>EN</button>
         <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
         <button onClick={() => i18n.changeLanguage('es')}>ES</button>
       </div>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <h1>{APP_NAME}</h1>
-        <button onClick={() => logoutMutation.mutate()}>{t('common.logout')}</button>
+        <button onClick={() => logoutMutation()}>{t('common.logout')}</button>
       </div>
       <h2>{t('home.users')}</h2>
       <ul>
-        {users?.map((user: {userId: string; email: string; name: string | null}) => (
+        {users?.map((user) => (
           <li key={user.userId}>{user.email} {user.name && `(${user.name})`}</li>
         ))}
       </ul>
@@ -48,14 +37,7 @@ const HomePage = () => {
 
 const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   const {t} = useTranslation()
-  const {data, isLoading, isError} = useQuery({
-    queryKey: ['users'],
-    queryFn: () => fetch('/api/users').then((res) => {
-      if (res.status === 401) throw new Error('unauthorized')
-      return res.json()
-    }),
-    retry: false,
-  })
+  const {data, isLoading, isError} = useGetUsersQuery()
 
   if (isLoading) return <p>{t('common.loading')}</p>
   if (isError || !data) return <Navigate to="/auth" replace />
