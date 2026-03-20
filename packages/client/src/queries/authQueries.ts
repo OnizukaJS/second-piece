@@ -50,6 +50,9 @@ export const useLogoutMutation = () => {
     mutationFn: async () => {
       await authApi.logout()
     },
-    onSuccess: () => queryClient.invalidateQueries({queryKey: usersQueryKeys.getUsers()}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: usersQueryKeys.getUsers()})
+      queryClient.invalidateQueries({queryKey: usersQueryKeys.me()})
+    },
   })
 }

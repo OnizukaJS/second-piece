@@ -2,13 +2,14 @@ import {useTranslation} from 'react-i18next'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import {APP_NAME} from '@shared/sharedConstants'
 import {useLogoutMutation} from './queries/authQueries'
-import {useGetUsersQuery} from './queries/usersQueries'
+import {useGetCurrentUser, useGetUsersQuery} from './queries/usersQueries'
 import {AuthPage} from './AuthPage'
 import {GoogleCallback} from './GoogleCallback'
 import i18n from './i18n'
 
 const HomePage = () => {
   const {t} = useTranslation()
+  const {data: currentUser} = useGetCurrentUser()
   const {data: users, isLoading} = useGetUsersQuery()
   const {mutate: logoutMutation} = useLogoutMutation()
 
@@ -25,10 +26,21 @@ const HomePage = () => {
         <h1>{APP_NAME}</h1>
         <button onClick={() => logoutMutation()}>{t('common.logout')}</button>
       </div>
+
+      <h2>{t('home.userDetails')}</h2>
+      {currentUser && (
+        <ul>
+          <li>{t('auth.email')}: {currentUser.email}</li>
+          <li>{t('auth.name')}: {currentUser.name ?? '-'}</li>
+          <li>{t('home.firstName')}: {currentUser.firstName ?? '-'}</li>
+          <li>{t('home.lastName')}: {currentUser.lastName ?? '-'}</li>
+        </ul>
+      )}
+
       <h2>{t('home.users')}</h2>
       <ul>
         {users?.map((user) => (
-          <li key={user.userId}>{user.email} {user.name && `(${user.name})`}</li>
+          <li key={user.userId}>- {user.email} {user.name && `(${user.name})`}</li>
         ))}
       </ul>
     </div>
@@ -37,7 +49,7 @@ const HomePage = () => {
 
 const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   const {t} = useTranslation()
-  const {data, isLoading, isError} = useGetUsersQuery()
+  const {data, isLoading, isError} = useGetCurrentUser()
 
   if (isLoading) return <p>{t('common.loading')}</p>
   if (isError || !data) return <Navigate to="/auth" replace />

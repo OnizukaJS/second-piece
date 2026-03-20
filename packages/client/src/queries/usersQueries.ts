@@ -3,9 +3,20 @@ import {useQuery} from '@tanstack/react-query'
 import {usersApi} from '../api/usersApi'
 
 export const usersQueryKeys = {
-  getUsers: () =>  ['users'],
-  getUserById: (userId: string) => ['users', userId]
+  me: () => ['users', 'me'],
+  getUsers: () => ['users'],
+  getUserById: (userId: string) => ['users', userId],
 }
+
+export const useGetCurrentUser = () =>
+  useQuery({
+    queryKey: usersQueryKeys.me(),
+    queryFn: async () => {
+      const res = await usersApi.me()
+      return res
+    },
+    retry: false,
+  })
 
 export const useGetUsersQuery = () =>
   useQuery({

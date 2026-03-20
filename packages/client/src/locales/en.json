@@ -14,6 +14,9 @@
     "loggingInWithGoogle": "Logging in with Google..."
   },
   "home": {
+    "userDetails": "User Details",
+    "firstName": "First Name",
+    "lastName": "Last Name",
     "users": "Users"
   }
 }
