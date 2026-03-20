@@ -2,6 +2,7 @@ import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {useEffect} from 'react'
 
 import i18n from '../i18n'
+import {applyTheme} from '../theme'
 import {usersApi} from '../api/usersApi'
 
 export const usersQueryKeys = {
@@ -21,10 +22,11 @@ export const useGetCurrentUser = () => {
   })
 
   useEffect(() => {
-    if (query.data?.userSettings.language) {
+    if (query.data?.userSettings) {
       i18n.changeLanguage(query.data.userSettings.language)
+      applyTheme(query.data.userSettings.displayMode)
     }
-  }, [query.data?.userSettings.language])
+  }, [query.data?.userSettings.language, query.data?.userSettings.displayMode])
 
   return query
 }

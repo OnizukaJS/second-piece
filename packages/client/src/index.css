@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-background text-text;
+  }
+}
+
+@theme {
+  --color-primary: #E63946;
+  --color-primary-hover: #CF3340;
+  --color-surface: #F9DBBD;
+  --color-background: #FFF5EE;
+  --color-text: #272635;
+  --color-text-muted: #6A7B76;
+  --color-accent: #84ACCE;
+  --color-accent-hover: #6E9AC0;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-primary: #FF4D5A;
+  --color-primary-hover: #E6434F;
+  --color-surface: #1A1A2E;
+  --color-background: #121222;
+  --color-text: #E8E8ED;
+  --color-text-muted: #8FA39E;
+  --color-accent: #9DBDE0;
+  --color-accent-hover: #84ACCE;
+}
