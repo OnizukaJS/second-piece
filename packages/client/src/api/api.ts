@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "@shared/sharedConstants"
+import {HTTP_STATUS} from '@shared/sharedConstants'
 
 export class ApiError extends Error {
   constructor(

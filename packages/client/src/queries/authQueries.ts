@@ -46,13 +46,15 @@ export const useGoogleLoginMutation = () => {
 
 export const useLogoutMutation = () => {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   return useMutation({
     mutationFn: async () => {
       await authApi.logout()
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: usersQueryKeys.getUsers()})
-      queryClient.invalidateQueries({queryKey: usersQueryKeys.me()})
+      queryClient.removeQueries({queryKey: usersQueryKeys.me()})
+      queryClient.removeQueries({queryKey: usersQueryKeys.getUsers()})
+      navigate('/auth')
     },
   })
 }
