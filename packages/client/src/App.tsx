@@ -1,31 +1,21 @@
 import {useTranslation} from 'react-i18next'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import {APP_NAME} from '@shared/sharedConstants'
-import {useLogoutMutation} from './queries/authQueries'
 import {useGetCurrentUser, useGetUsersQuery} from './queries/usersQueries'
 import {AuthPage} from './AuthPage'
 import {GoogleCallback} from './GoogleCallback'
-import i18n from './i18n'
+import {Header} from './Header'
 
 const HomePage = () => {
   const {t} = useTranslation()
   const {data: currentUser} = useGetCurrentUser()
   const {data: users, isLoading} = useGetUsersQuery()
-  const {mutate: logoutMutation} = useLogoutMutation()
 
   if (isLoading) return <p>{t('common.loading')}</p>
 
   return (
-    <div style={{maxWidth: 600, margin: '40px auto'}}>
-      <div className="flex gap-1">
-        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
-        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
-        <button onClick={() => i18n.changeLanguage('es')}>ES</button>
-      </div>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        <h1>{APP_NAME}</h1>
-        <button onClick={() => logoutMutation()}>{t('common.logout')}</button>
-      </div>
+    <div style={{maxWidth: 600, margin: '0 auto'}}>
+      <h1>{APP_NAME}</h1>
 
       <h2>{t('home.userDetails')}</h2>
       {currentUser && (
@@ -54,13 +44,25 @@ const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   if (isLoading) return <p>{t('common.loading')}</p>
   if (isError || !data) return <Navigate to="/auth" replace />
 
-  return <>{children}</>
+  return (
+    <>
+      <Header currentUser={data} />
+      {children}
+    </>
+  )
 }
+
+const PublicRoute = ({children}: {children: React.ReactNode}) => (
+  <>
+    <Header />
+    {children}
+  </>
+)
 
 export const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/auth" element={<AuthPage />} />
+      <Route path="/auth" element={<PublicRoute><AuthPage /></PublicRoute>} />
       <Route path="/auth/google/callback" element={<GoogleCallback />} />
       <Route path="*" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
     </Routes>

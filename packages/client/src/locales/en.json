@@ -1,7 +1,12 @@
 {
   "common": {
     "loading": "Loading...",
-    "logout": "Logout"
+    "logout": "Logout",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
   "auth": {
     "title": "Auth",

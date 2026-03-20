@@ -1,5 +1,6 @@
 import {HTTP_STATUS} from '@shared/sharedConstants'
 
+import {userSettingsDao} from '../daos/userSettingsDao'
 import {usersDao} from '../daos/usersDao'
 import {AppError} from '../errors'
 import {UsersId} from '../daos/types/database'
@@ -45,6 +46,14 @@ export namespace usersFacade {
       throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')
     }
     return user
+  }
+
+  export const updateUserSettings = async (userId: UsersId, data: {language?: string; displayMode?: string}) => {
+    const settings = await userSettingsDao.update(userId, data)
+    if (!settings) {
+      throw new AppError(HTTP_STATUS.NOT_FOUND, 'User settings not found')
+    }
+    return settings
   }
 
   export const deleteUser = async (userId: UsersId) => {

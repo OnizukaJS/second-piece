@@ -1,5 +1,7 @@
-import {useQuery} from '@tanstack/react-query'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
+import {useEffect} from 'react'
 
+import i18n from '../i18n'
 import {usersApi} from '../api/usersApi'
 
 export const usersQueryKeys = {
@@ -8,8 +10,8 @@ export const usersQueryKeys = {
   getUserById: (userId: string) => ['users', userId],
 }
 
-export const useGetCurrentUser = () =>
-  useQuery({
+export const useGetCurrentUser = () => {
+  const query = useQuery({
     queryKey: usersQueryKeys.me(),
     queryFn: async () => {
       const res = await usersApi.me()
@@ -17,6 +19,15 @@ export const useGetCurrentUser = () =>
     },
     retry: false,
   })
+
+  useEffect(() => {
+    if (query.data?.userSettings.language) {
+      i18n.changeLanguage(query.data.userSettings.language)
+    }
+  }, [query.data?.userSettings.language])
+
+  return query
+}
 
 export const useGetUsersQuery = () =>
   useQuery({
@@ -35,5 +46,17 @@ export const useGetUserQuery = (userId: string) =>
       const res = await usersApi.getUserById(userId)
       return res
     },
-    retry: false
+    retry: false,
   })
+
+export const useUpdateUserSettingsMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (data: {language?: string; displayMode?: string}) => {
+      await usersApi.updateMySettings(data)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: usersQueryKeys.me()})
+    },
+  })
+}

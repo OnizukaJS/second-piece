@@ -11,7 +11,7 @@ export namespace userSettingsDao {
 
   export const getByUserId = async (userId: string): Promise<UserSettings> => await db(TABLE_NAME).first().where({userId})
 
-  export const update = async (userId: string, data: Record<string, unknown>): Promise<UserSettings> => {
+  export const update = async (userId: string, data: {language?: string; displayMode?: string}): Promise<UserSettings> => {
     const [settings] = await db(TABLE_NAME).where({userId}).update(data).returning('*')
     return settings
   }

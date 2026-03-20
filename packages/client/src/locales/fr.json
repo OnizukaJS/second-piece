@@ -1,7 +1,12 @@
 {
   "common": {
     "loading": "Chargement...",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "language": "Langue",
+    "theme": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
   },
   "auth": {
     "title": "Authentification",

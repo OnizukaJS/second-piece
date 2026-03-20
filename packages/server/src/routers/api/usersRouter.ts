@@ -1,10 +1,11 @@
 import Router from 'koa-router'
 
-import {createUser, deleteUser, getCurrentUser, getUserById, getUsers, updateUser} from '../../controllers/usersController'
+import {createUser, deleteUser, getCurrentUser, getUserById, getUsers, updateUser, updateUserSettings} from '../../controllers/usersController'
 
 const usersRouter = new Router({prefix: '/users'})
 
 usersRouter.get('/me', getCurrentUser)
+usersRouter.put('/me/settings', updateUserSettings)
 usersRouter.get('/', getUsers)
 usersRouter.get('/:id', getUserById)
 usersRouter.post('/', createUser)

@@ -1,7 +1,12 @@
 {
   "common": {
     "loading": "Cargando...",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "language": "Idioma",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
   },
   "auth": {
     "title": "Autenticación",

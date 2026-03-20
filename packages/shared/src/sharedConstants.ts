@@ -1,3 +1,5 @@
+import {Enum} from "./typings/utils"
+
 export const APP_NAME = 'Second Piece'
 
 export const USER_STATUS = {
@@ -16,11 +18,15 @@ export const LANGUAGE = {
   ES: 'es',
 } as const
 
+export type Language = Enum<typeof LANGUAGE>
+
 export const DISPLAY_MODE = {
   LIGHT: 'light',
   DARK: 'dark',
   SYSTEM: 'system',
 } as const
+
+export type DisplayMode = Enum<typeof DISPLAY_MODE>
 
 export const HTTP_STATUS = {
   OK: 200,
