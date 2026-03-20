@@ -32,7 +32,7 @@ export const useGetUserQuery = (userId: string) =>
   useQuery({
     queryKey: usersQueryKeys.getUserById(userId),
     queryFn: async () => {
-      const res =  usersApi.getUserById(userId)
+      const res = await usersApi.getUserById(userId)
       return res
     },
     retry: false
