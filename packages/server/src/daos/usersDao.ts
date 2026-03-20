@@ -1,5 +1,5 @@
 import {db} from '../db'
-import {Users} from './types/database'
+import {Users, UserSettings} from './types/database'
 
 const TABLE_NAME = 'users'
 
@@ -11,7 +11,24 @@ export namespace usersDao {
 
   export const getUsers = async (): Promise<Users[]> => await db(TABLE_NAME).select()
 
-  export const getByUserId = async (userId: string): Promise<Users> => await db(TABLE_NAME).first().where({userId})
+  export type UserDetails = Pick<Users, 'userId' | 'name' | 'firstName' | 'lastName' | 'email'> 
+    & Pick<UserSettings, 'userSettingsId' | 'language' | 'displayMode'>
+
+  export const getByUserId = async (
+    userId: string
+  ): Promise<UserDetails> => await db(TABLE_NAME).select(
+    'users.userId',
+    'users.name',
+    'users.firstName',
+    'users.lastName',
+    'users.email',
+    'userSettings.userSettingsId',
+    'userSettings.language',
+    'userSettings.displayMode',
+  )
+  .join('userSettings', 'userSettings.userId', 'users.userId')
+  .first()
+  .where({'users.userId': userId})
 
   export const getByEmail = async (email: string): Promise<Users> => await db(TABLE_NAME).first().where({email})
 

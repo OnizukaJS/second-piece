@@ -10,9 +10,8 @@ export const createUser = async (ctx: RouterContext) => {
 }
 
 export const getCurrentUser = async (ctx: RouterContext) => {
-  const {userId, email, name, firstName, lastName, status} = ctx.state.user
   ctx.status = HTTP_STATUS.OK
-  ctx.body = {userId, email, name, firstName, lastName, status}
+  ctx.body = await usersFacade.getCurrentUser(ctx.state.userId)
 }
 
 export const getUsers = async (ctx: RouterContext) => {

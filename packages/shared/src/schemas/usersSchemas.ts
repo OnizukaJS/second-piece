@@ -28,3 +28,9 @@ export const userSettingsSchema = z.object({
 })
 
 export type UserSettings = z.infer<typeof userSettingsSchema>
+
+export const userDetailsSchema = userSchema
+  .omit({status: true})
+  .and(userSettingsSchema.omit({userId: true}))
+
+export type UserDetails = z.infer<typeof userDetailsSchema>

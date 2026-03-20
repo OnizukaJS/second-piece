@@ -23,16 +23,7 @@ export const authenticate = async (ctx: RouterContext, next: () => Promise<void>
     return
   }
 
-  const user = await db('users').where({userId: tokenRow.userId}).first()
-
-  if (!user) {
-    ctx.status = HTTP_STATUS.UNAUTHORIZED
-    ctx.body = {error: 'User not found'}
-    return
-  }
-
-  ctx.state.user = user
-  ctx.state.token = tokenRow
+  ctx.state.userId = tokenRow.userId
 
   await next()
 }

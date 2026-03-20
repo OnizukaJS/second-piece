@@ -13,6 +13,24 @@ export namespace usersFacade {
     return await usersDao.getUsers()
   }
 
+  export const getCurrentUser = async (userId: UsersId) => {
+    const user = await usersDao.getByUserId(userId)
+    if (!user) {
+      throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')
+    }
+
+    const {userSettingsId, displayMode, language, ...userData} = user
+
+    return {
+      ...userData,
+      userSettings: {
+        userSettingsId,
+        displayMode, 
+        language
+      }
+    }
+  }
+
   export const getUserById = async (userId: UsersId) => {
     const user = await usersDao.getByUserId(userId)
     if (!user) {
