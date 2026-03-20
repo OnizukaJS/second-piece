@@ -2855,6 +2855,8 @@ __metadata:
 "@second-piece/shared@workspace:*, @second-piece/shared@workspace:packages/shared":
   version: 0.0.0-use.local
   resolution: "@second-piece/shared@workspace:packages/shared"
+  dependencies:
+    zod: "npm:^3.24.0"
   languageName: unknown
   linkType: soft
 
