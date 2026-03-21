@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useRegisterMutation, useLoginMutation} from './queries/authQueries'
+import { Button } from './components/Button'
 
 export const AuthPage = () => {
   const {t} = useTranslation()
@@ -35,13 +36,22 @@ export const AuthPage = () => {
         <input placeholder={t('auth.password')} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
         <div style={{display: 'flex', gap: 8}}>
-          <button onClick={() => registerMutation({email, password, name})}>{t('auth.register')}</button>
-          <button onClick={() => loginMutation({email, password})}>{t('auth.login')}</button>
+          <Button 
+            title={t('auth.register')}
+            onClick={() => registerMutation({email, password, name})}
+          />
+          <Button 
+            title={t('auth.login')}
+            onClick={() => loginMutation({email, password})}
+          />
         </div>
 
         <hr />
 
-        <button onClick={handleGoogleLogin}>{t('auth.loginWithGoogle')}</button>
+        <Button 
+          title={t('auth.loginWithGoogle')}
+          onClick={handleGoogleLogin}
+        />
       </div>
     </div>
   )

@@ -6,6 +6,7 @@ import {useUpdateUserSettingsMutation} from './queries/usersQueries'
 import i18n from './i18n'
 import {LANGUAGE_NAME, THEME_LABEL_KEY} from './constants'
 import {applyTheme} from './theme'
+import {Button} from './components/Button'
 
 export const Header = ({currentUser}: {currentUser?: UserDetails}) => {
   const {t} = useTranslation()
@@ -35,26 +36,24 @@ export const Header = ({currentUser}: {currentUser?: UserDetails}) => {
         <div className="flex items-center gap-1">
           <span className="text-sm text-text-muted">{t('common.language')}:</span>
           {Object.values(LANGUAGE).map((language) => (
-            <button
+            <Button 
               key={language}
+              title={LANGUAGE_NAME[language]}
               onClick={() => handleLanguageChange(language)}
-              className={`rounded px-2 py-1 text-sm ${currentLanguage === language ? 'bg-primary text-white' : 'bg-background text-text'}`}
-            >
-              {LANGUAGE_NAME[language]}
-            </button>
+              variant={currentLanguage === language ? 'primary' : 'secondary'}
+            />
           ))}
         </div>
 
         <div className="flex items-center gap-1">
           <span className="text-sm text-text-muted">{t('common.theme')}:</span>
           {Object.values(DISPLAY_MODE).map((mode) => (
-            <button
+            <Button 
               key={mode}
+              title={t(THEME_LABEL_KEY[mode])}
               onClick={() => handleThemeChange(mode)}
-              className={`rounded px-2 py-1 text-sm ${currentTheme === mode ? 'bg-primary text-white' : 'bg-background text-text'}`}
-            >
-              {t(THEME_LABEL_KEY[mode])}
-            </button>
+              variant={currentTheme === mode ? 'primary' : 'secondary'}
+            />
           ))}
         </div>
       </div>
@@ -73,9 +72,10 @@ export const Header = ({currentUser}: {currentUser?: UserDetails}) => {
               {(currentUser.name?.[0] ?? currentUser.email[0]).toUpperCase()}
             </div>
           )}
-          <button onClick={() => logoutMutation()} className="rounded bg-primary px-3 py-1 text-sm text-white hover:bg-primary-hover">
-            {t('common.logout')}
-          </button>
+          <Button 
+            title={t('common.logout')}
+            onClick={() => logoutMutation()}
+          />
         </div>
       )}
     </header>
