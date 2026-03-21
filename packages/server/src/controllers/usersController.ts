@@ -29,6 +29,12 @@ export const updateUser = async (ctx: RouterContext) => {
   ctx.body = await usersFacade.updateUser(ctx.params.id, ctx.request.body as Record<string, unknown>)
 }
 
+export const updateAvatar = async (ctx: RouterContext) => {
+  const {avatarUrl} = ctx.request.body as {avatarUrl: string}
+  ctx.status = HTTP_STATUS.OK
+  ctx.body = await usersFacade.updateAvatar(ctx.state.userId, avatarUrl)
+}
+
 export const updateUserSettings = async (ctx: RouterContext) => {
   ctx.status = HTTP_STATUS.OK
   ctx.body = await usersFacade.updateUserSettings(ctx.state.userId, ctx.request.body as Record<string, unknown>)

@@ -33,7 +33,7 @@ export async function up(knex: Knex): Promise<void> {
       })
       .notNullable()
     table.string('phoneNumber').nullable()
-    table.uuid('avatarFilerId').nullable()
+    table.string('avatarUrl').nullable()
     table.string('firstName').nullable()
     table.string('lastName').nullable()
     table.date('dateOfBirth').nullable()

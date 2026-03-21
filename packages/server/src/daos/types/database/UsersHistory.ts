@@ -20,7 +20,7 @@ export default interface UsersHistory {
 
   phoneNumber: string | null;
 
-  avatarFilerId: string | null;
+  avatarUrl: string | null;
 
   firstName: string | null;
 
@@ -48,7 +48,7 @@ export interface UsersHistoryInitializer {
 
   phoneNumber?: string | null;
 
-  avatarFilerId?: string | null;
+  avatarUrl?: string | null;
 
   firstName?: string | null;
 

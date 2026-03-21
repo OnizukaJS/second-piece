@@ -24,7 +24,7 @@ export default interface Users {
 
   phoneNumber: string | null;
 
-  avatarFilerId: string | null;
+  avatarUrl: string | null;
 
   firstName: string | null;
 
@@ -57,7 +57,7 @@ export interface UsersInitializer {
 
   phoneNumber?: string | null;
 
-  avatarFilerId?: string | null;
+  avatarUrl?: string | null;
 
   firstName?: string | null;
 

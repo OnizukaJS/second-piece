@@ -8,6 +8,7 @@ export const userSchema = z.object({
   name: z.string().nullable(),
   firstName: z.string().nullable(),
   lastName: z.string().nullable(),
+  avatarUrl: z.string().nullable(),
   status: z.nativeEnum(USER_STATUS),
 })
 

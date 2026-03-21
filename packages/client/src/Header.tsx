@@ -60,9 +60,23 @@ export const Header = ({currentUser}: {currentUser?: UserDetails}) => {
       </div>
 
       {currentUser && (
-        <button onClick={() => logoutMutation()} className="rounded bg-primary px-3 py-1 text-sm text-white hover:bg-primary-hover">
-          {t('common.logout')}
-        </button>
+        <div className="flex items-center gap-3">
+          {currentUser.avatarUrl ? (
+            <img
+              src={currentUser.avatarUrl}
+              alt={currentUser.name ?? ''}
+              className="h-8 w-8 rounded-full"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm text-white">
+              {(currentUser.name?.[0] ?? currentUser.email[0]).toUpperCase()}
+            </div>
+          )}
+          <button onClick={() => logoutMutation()} className="rounded bg-primary px-3 py-1 text-sm text-white hover:bg-primary-hover">
+            {t('common.logout')}
+          </button>
+        </div>
       )}
     </header>
   )

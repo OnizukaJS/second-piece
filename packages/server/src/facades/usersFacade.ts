@@ -48,6 +48,14 @@ export namespace usersFacade {
     return user
   }
 
+  export const updateAvatar = async (userId: UsersId, avatarUrl: string) => {
+    const user = await usersDao.update(userId, {avatarUrl})
+    if (!user) {
+      throw new AppError(HTTP_STATUS.NOT_FOUND, 'User not found')
+    }
+    return {avatarUrl: user.avatarUrl}
+  }
+
   export const updateUserSettings = async (userId: UsersId, data: {language?: string; displayMode?: string}) => {
     const settings = await userSettingsDao.update(userId, data)
     if (!settings) {

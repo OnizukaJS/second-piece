@@ -93,8 +93,11 @@ export namespace authFacade {
         name: payload.name ?? null,
         firstName: payload.given_name ?? null,
         lastName: payload.family_name ?? null,
+        avatarUrl: payload.picture ?? null,
       })
       await userSettingsDao.create({userId: user.userId})
+    } else if (payload.picture && user.avatarUrl !== payload.picture) {
+      user = await usersDao.update(user.userId, {avatarUrl: payload.picture})
     }
 
     const session = await createSession(user.userId)

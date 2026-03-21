@@ -11,7 +11,7 @@ export namespace usersDao {
 
   export const getUsers = async (): Promise<Users[]> => await db(TABLE_NAME).select()
 
-  export type UserDetails = Pick<Users, 'userId' | 'name' | 'firstName' | 'lastName' | 'email'> 
+  export type UserDetails = Pick<Users, 'userId' | 'name' | 'firstName' | 'lastName' | 'email' | 'avatarUrl'>
     & Pick<UserSettings, 'userSettingsId' | 'language' | 'displayMode'>
 
   export const getByUserId = async (
@@ -22,6 +22,7 @@ export namespace usersDao {
     'users.firstName',
     'users.lastName',
     'users.email',
+    'users.avatarUrl',
     'userSettings.userSettingsId',
     'userSettings.language',
     'userSettings.displayMode',
