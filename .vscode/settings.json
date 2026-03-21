@@ -7,5 +7,14 @@
   "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
   "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
-  "css.validate": false
+  "css.validate": false,
+  "tailwindCSS.experimental.configFile": "packages/client/src/index.css",
+  "tailwindCSS.classAttributes": ["class", "className"],
+  "tailwindCSS.experimental.classRegex": [
+    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["twMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
+  ],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
 }
